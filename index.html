@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinDan — Official</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>
+	/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 20px 40px 20px; /* Уменьшаем поля по бокам */
+    }
+
+    .header-text {
+        font-size: 32px; /* Уменьшаем заголовок, чтобы не переносился криво */
+        letter-spacing: 2px;
+    }
+
+    .nav-menu {
+        gap: 20px; /* Сжимаем меню */
+        overflow-x: auto; /* Добавляем прокрутку, если пункты не влезут */
+        white-space: nowrap;
+    }
+
+    .row-links {
+        flex-direction: column; /* Кнопки встают друг под друга */
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%; /* Кнопки на всю ширину экрана */
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .profile-section {
+        flex-direction: column; /* Аватарка теперь над текстом */
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .spotify-container {
+        min-height: 152px; /* Компактный плеер для мобилок */
+    }
+}
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            margin: 0;
+            padding: 40px 10% 80px 10%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .nav-wrapper { position: relative; margin-bottom: 60px; }
+        .nav-menu { display: flex; gap: 40px; padding-bottom: 10px; }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .nav-link.active { color: #ffffff; }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-content {
+            width: 100%;
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .page-content.active {
+            display: block;
+            animation: fadeInPage 0.4s forwards ease-out;
+        }
+        @keyframes fadeInPage {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-section { display: flex; align-items: center; gap: 25px; margin-bottom: 20px; }
+        .avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.1); }
+        .header-container { width: 100%; margin-bottom: 50px; }
+        .header-text { font-size: 56px; font-weight: 100; letter-spacing: 4px; margin: 0; text-transform: uppercase; }
+        .sub-header { font-size: 16px; font-weight: 300; color: rgba(255, 255, 255, 0.5); margin: 10px 0 25px 0; }
+        .underline { width: 100%; height: 1px; background: linear-gradient(90deg, #ffffff, transparent); opacity: 0.3; }
+
+        .about-text {
+            max-width: 800px;
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .signature { margin-top: 30px; font-weight: 600; color: #ffffff; letter-spacing: 1px; }
+
+        .spotify-container {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 12px;
+            overflow: hidden;
+            min-height: 352px;
+            margin-bottom: 30px;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .row-links {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: white;
+            padding: 20px 25px;
+            border-radius: 2px;
+            font-weight: 300;
+            font-size: 18px;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.02);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .btn:hover { background: #ffffff; color: #000; transform: translateY(-5px); }
+        
+        .btn-yt, .btn-ytm { border-left: 5px solid #ff0000; }
+        .btn-tg { border-left: 5px solid #24A1DE; }
+        .btn-am { border-left: 5px solid #fa243c; }
+        .btn-vk { border-left: 5px solid #0077ff; }
+        .btn-ym { border-left: 5px solid #ffcc00; }
+        .btn-dz { border-left: 5px solid #ff0092; }
+        .btn-donate { border-left: 5px solid #00ff88; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper">
+        <div class="nav-menu">
+            <div class="nav-link active" onclick="switchPage('main', this)">Главная</div>
+            <div class="nav-link" onclick="switchPage('about', this)">Обо мне</div>
+            <div class="nav-link" onclick="switchPage('music', this)">Моя музыка</div>
+        </div>
+        <div class="nav-indicator" id="indicator"></div>
+    </div>
+
+    <!-- ГЛАВНАЯ -->
+    <div id="main-page" class="page-content active">
+        <div class="header-container">
+            <div class="profile-section">
+                <img src="https://thumbs2.imgbox.com/d6/fd/1T9MyFnR_t.png" class="avatar" alt="WinDan">
+                <h1 class="header-text">Сайт WinDan</h1>
+            </div>
+            <div class="sub-header">Игры, сборки, стримы, видео, и не только!</div>
+            <div class="underline"></div>
+        </div>
+        <div class="links-container">
+            <div class="row-links">
+                <a href="https://www.youtube.com/@WinDanyan" target="_blank" class="btn btn-yt">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+                <a href="https://t.me/windanyan" target="_blank" class="btn btn-tg">
+                    <i class="fab fa-telegram-plane"></i> Telegram
+                </a>
+            </div>
+            <a href="https://donate.stream/donate_69789b5beff05" target="_blank" class="btn btn-donate">
+                <i class="fas fa-wallet"></i> Донат
+            </a>
+        </div>
+    </div>
+
+    <!-- ОБО МНЕ -->
+    <div id="about-page" class="page-content">
+        <div class="header-container">
+            <h1 class="header-text">Обо мне</h1>
+            <div class="underline"></div>
+        </div>
+        <div class="about-text">
+            Я — Даниил Волобуев, создатель канала WinDan и всех его соцсетей. У меня всегда была мечта завести канал на ютубе, и... у меня получается! На данный момент (24.03.2026) у меня 51 подписчик. Если вы думаете, что я этому не рад — вы ОЧЕНЬ не правы. Я понял, что у меня будет успех, когда всего за один день у меня набралось 40 подписчиков! Я был очень рад. Я уже неоднократно пытался завести свой ютуб-канал, но... не очень. Сейчас я понял, что мне нужно идти к успеху! Также я занимаюсь играми, музыкой. Люблю вас! Всем пока.
+            <div class="signature">- Даниил Волобуев 2026</div>
+        </div>
+    </div>
+
+    <!-- МОЯ МУЗЫКА -->
+    <div id="music-page" class="page-content">
+        <div class="header-container">
+            <h1 class="header-text">Моя музыка</h1>
+            <div class="underline"></div>
+        </div>
+        <div class="spotify-container">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/0dSaKc1M8AMTavJAWRuIJm?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+        
+        <div class="links-container">
+            <div class="row-links">
+                <a href="https://music.apple.com/us/artist/dj-danyan/1785423912" target="_blank" class="btn btn-am">
+                    <i class="fab fa-apple"></i> Apple Music
+                </a>
+                <a href="https://vk.ru/artist/djdanyan" target="_blank" class="btn btn-vk">
+                    <i class="fab fa-vk"></i> ВКонтакте
+                </a>
+            </div>
+            <div class="row-links">
+                <a href="https://music.yandex.ru/artist/23449779" target="_blank" class="btn btn-ym">
+                    <i class="fas fa-music"></i> Яндекс Музыка
+                </a>
+                <a href="https://www.deezer.com/ru/artist/294037581" target="_blank" class="btn btn-dz">
+                    <i class="fab fa-deezer"></i> Deezer
+                </a>
+            </div>
+            <!-- Новая кнопка YouTube Music -->
+            <a href="https://music.youtube.com/channel/UCBYVdOeRAbj83jhArQC08OQ?si=PRIfJWWmPtcaBI37" target="_blank" class="btn btn-ytm">
+                <i class="fab fa-youtube"></i> YouTube Music
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const indicator = document.getElementById('indicator');
+        function moveIndicator(el) {
+            indicator.style.width = el.offsetWidth + 'px';
+            indicator.style.left = el.offsetLeft + 'px';
+        }
+        function switchPage(id, el) {
+            moveIndicator(el);
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            el.classList.add('active');
+            document.querySelectorAll('.page-content').forEach(p => {
+                p.classList.remove('active');
+                p.style.display = 'none';
+            });
+            const activePage = document.getElementById(id + '-page');
+            activePage.style.display = 'block';
+            setTimeout(() => { activePage.classList.add('active'); }, 10);
+        }
+        window.onload = () => moveIndicator(document.querySelector('.nav-link.active'));
+    </script>
+
+</body>
+</html>
